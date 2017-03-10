@@ -5,29 +5,33 @@ require_login();
 // Set default values for all variables the page needs.
 $errors = array();
 $user = array(
-  'id' => null,
-  'first_name' => '',
-  'last_name' => '',
-  'username' => '',
-  'email' => ''
+    'id' => null,
+    'first_name' => '',
+    'last_name' => '',
+    'username' => '',
+    'email' => '',
+    'password_confirmation' => '',
+    'password' => ''
 );
 
 if(is_post_request() && request_is_same_domain()) {
-  ensure_csrf_token_valid();
+    ensure_csrf_token_valid();
 
-  // Confirm that values are present before accessing them.
-  if(isset($_POST['first_name'])) { $user['first_name'] = $_POST['first_name']; }
-  if(isset($_POST['last_name'])) { $user['last_name'] = $_POST['last_name']; }
-  if(isset($_POST['username'])) { $user['username'] = $_POST['username']; }
-  if(isset($_POST['email'])) { $user['email'] = $_POST['email']; }
+    // Confirm that values are present before accessing them.
+    if(isset($_POST['first_name'])) { $user['first_name'] = $_POST['first_name']; }
+    if(isset($_POST['last_name'])) { $user['last_name'] = $_POST['last_name']; }
+    if(isset($_POST['username'])) { $user['username'] = $_POST['username']; }
+    if(isset($_POST['email'])) { $user['email'] = $_POST['email']; }
+    if(isset($_POST['password'])) { $user['password'] = $_POST['password']; }
+    if(isset($_POST['password_confirmation'])) { $user['password_confirmation'] = $_POST['password_confirmation']; }
 
-  $result = insert_user($user);
-  if($result === true) {
-    $new_id = db_insert_id($db);
-    redirect_to('show.php?id=' . $new_id);
-  } else {
-    $errors = $result;
-  }
+    $result = insert_user($user);
+    if($result === true) {
+        $new_id = db_insert_id($db);
+        redirect_to('show.php?id=' . $new_id);
+    } else {
+        $errors = $result;
+    }
 }
 ?>
 <?php $page_title = 'Staff: New User'; ?>
@@ -50,7 +54,15 @@ if(is_post_request() && request_is_same_domain()) {
     <input type="text" name="username" value="<?php echo h($user['username']); ?>" /><br />
     Email:<br />
     <input type="text" name="email" value="<?php echo h($user['email']); ?>" /><br />
+    Password:<br />
+    <input type="password" name="password" /><br />
+    Confirm Password:<br />
+    <input type="password" name="password_confirmation" /><br />
     <br />
+<p>
+   Passwords should be at least 12 characters and include at least one uppercase letter, lowercase letter, number, and symbol.
+</p>
+
     <input type="submit" name="submit" value="Create"  />
   </form>
 
