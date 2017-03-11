@@ -43,7 +43,7 @@ if(is_post_request() && request_is_same_domain()) {
       }
     } else {
       // No username found
-      $errors[] ="Log in was not successful.";
+      $errors[] ="Log in was unsuccessful.";
     }
   }
 }
