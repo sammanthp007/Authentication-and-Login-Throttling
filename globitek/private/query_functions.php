@@ -1,51 +1,51 @@
 <?php
 
-  //
-  // COUNTRY QUERIES
-  //
+//
+// COUNTRY QUERIES
+//
 
-  // Find all countries, ordered by name
-  function find_all_countries() {
+// Find all countries, ordered by name
+function find_all_countries() {
     global $db;
     $sql = "SELECT * FROM countries ";
     $sql .= "ORDER BY name ASC;";
     $country_result = db_query($db, $sql);
     return $country_result;
-  }
+}
 
-  // Find country by ID
-  function find_country_by_id($id=0) {
+// Find country by ID
+function find_country_by_id($id=0) {
     global $db;
     $sql = "SELECT * FROM countries ";
     $sql .= "WHERE id='" . db_escape($db, $id) . "';";
     $country_result = db_query($db, $sql);
     return $country_result;
-  }
+}
 
-  function validate_country($country, $errors=array()) {
+function validate_country($country, $errors=array()) {
     if (is_blank($country['name'])) {
-      $errors[] = "Name cannot be blank.";
+        $errors[] = "Name cannot be blank.";
     } elseif (!has_length($country['name'], array('min' => 2, 'max' => 255))) {
-      $errors[] = "Name must be between 2 and 255 characters.";
+        $errors[] = "Name must be between 2 and 255 characters.";
     }
 
     if (is_blank($country['code'])) {
-      $errors[] = "Code cannot be blank.";
+        $errors[] = "Code cannot be blank.";
     } elseif (!has_length($country['code'], array('min' => 2, 'max' => 255))) {
-      $errors[] = "Code must be between 2 and 255 characters.";
+        $errors[] = "Code must be between 2 and 255 characters.";
     }
 
     return $errors;
-  }
+}
 
-  // Add a new country to the table
-  // Either returns true or an array of errors
-  function insert_country($country) {
+// Add a new country to the table
+// Either returns true or an array of errors
+function insert_country($country) {
     global $db;
 
     $errors = validate_country($country);
     if (!empty($errors)) {
-      return $errors;
+        return $errors;
     }
 
     $sql = "INSERT INTO countries ";
@@ -57,24 +57,24 @@
     // For INSERT statements, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
-      return true;
+        return true;
     } else {
-      // The SQL INSERT statement failed.
-      // Just show the error, not the form
-      echo db_error($db);
-      db_close($db);
-      exit;
+        // The SQL INSERT statement failed.
+        // Just show the error, not the form
+        echo db_error($db);
+        db_close($db);
+        exit;
     }
-  }
+}
 
-  // Edit a country record
-  // Either returns true or an array of errors
-  function update_country($country) {
+// Edit a country record
+// Either returns true or an array of errors
+function update_country($country) {
     global $db;
 
     $errors = validate_country($country);
     if (!empty($errors)) {
-      return $errors;
+        return $errors;
     }
 
     $sql = "UPDATE countries SET ";
@@ -85,76 +85,76 @@
     // For update_country statements, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
-      return true;
+        return true;
     } else {
-      // The SQL UPDATE statement failed.
-      // Just show the error, not the form
-      echo db_error($db);
-      db_close($db);
-      exit;
+        // The SQL UPDATE statement failed.
+        // Just show the error, not the form
+        echo db_error($db);
+        db_close($db);
+        exit;
     }
-  }
+}
 
-  //
-  // STATE QUERIES
-  //
+//
+// STATE QUERIES
+//
 
-  // Find all states, ordered by name
-  function find_all_states() {
+// Find all states, ordered by name
+function find_all_states() {
     global $db;
     $sql = "SELECT * FROM states ";
     $sql .= "ORDER BY name ASC;";
     $state_result = db_query($db, $sql);
     return $state_result;
-  }
+}
 
-  // Find all states, ordered by name
-  function find_states_for_country_id($country_id=0) {
+// Find all states, ordered by name
+function find_states_for_country_id($country_id=0) {
     global $db;
     $sql = "SELECT * FROM states ";
     $sql .= "WHERE country_id='" . db_escape($db, $country_id) . "' ";
     $sql .= "ORDER BY name ASC;";
     $state_result = db_query($db, $sql);
     return $state_result;
-  }
+}
 
-  // Find state by ID
-  function find_state_by_id($id=0) {
+// Find state by ID
+function find_state_by_id($id=0) {
     global $db;
     $sql = "SELECT * FROM states ";
     $sql .= "WHERE id='" . db_escape($db, $id) . "';";
     $state_result = db_query($db, $sql);
     return $state_result;
-  }
+}
 
-  function validate_state($state, $errors=array()) {
+function validate_state($state, $errors=array()) {
     if (is_blank($state['name'])) {
-      $errors[] = "Name cannot be blank.";
+        $errors[] = "Name cannot be blank.";
     } elseif (!has_length($state['name'], array('min' => 2, 'max' => 255))) {
-      $errors[] = "Name must be between 2 and 255 characters.";
+        $errors[] = "Name must be between 2 and 255 characters.";
     }
 
     if (is_blank($state['code'])) {
-      $errors[] = "Code cannot be blank.";
+        $errors[] = "Code cannot be blank.";
     } elseif (!has_length($state['code'], array('min' => 2, 'max' => 255))) {
-      $errors[] = "Code must be between 2 and 255 characters.";
+        $errors[] = "Code must be between 2 and 255 characters.";
     }
 
     if (is_blank($state['country_id'])) {
-      $errors[] = "Country ID cannot be blank.";
+        $errors[] = "Country ID cannot be blank.";
     }
 
     return $errors;
-  }
+}
 
-  // Add a new state to the table
-  // Either returns true or an array of errors
-  function insert_state($state) {
+// Add a new state to the table
+// Either returns true or an array of errors
+function insert_state($state) {
     global $db;
 
     $errors = validate_state($state);
     if (!empty($errors)) {
-      return $errors;
+        return $errors;
     }
 
     $sql = "INSERT INTO states ";
@@ -167,24 +167,24 @@
     // For INSERT statements, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
-      return true;
+        return true;
     } else {
-      // The SQL INSERT statement failed.
-      // Just show the error, not the form
-      echo db_error($db);
-      db_close($db);
-      exit;
+        // The SQL INSERT statement failed.
+        // Just show the error, not the form
+        echo db_error($db);
+        db_close($db);
+        exit;
     }
-  }
+}
 
-  // Edit a state record
-  // Either returns true or an array of errors
-  function update_state($state) {
+// Edit a state record
+// Either returns true or an array of errors
+function update_state($state) {
     global $db;
 
     $errors = validate_state($state);
     if (!empty($errors)) {
-      return $errors;
+        return $errors;
     }
 
     $sql = "UPDATE states SET ";
@@ -196,74 +196,74 @@
     // For update_state statements, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
-      return true;
+        return true;
     } else {
-      // The SQL UPDATE statement failed.
-      // Just show the error, not the form
-      echo db_error($db);
-      db_close($db);
-      exit;
+        // The SQL UPDATE statement failed.
+        // Just show the error, not the form
+        echo db_error($db);
+        db_close($db);
+        exit;
     }
-  }
+}
 
-  //
-  // TERRITORY QUERIES
-  //
+//
+// TERRITORY QUERIES
+//
 
-  // Find all territories, ordered by state_id
-  function find_all_territories() {
+// Find all territories, ordered by state_id
+function find_all_territories() {
     global $db;
     $sql = "SELECT * FROM territories ";
     $sql .= "ORDER BY state_id ASC, position ASC;";
     $territory_result = db_query($db, $sql);
     return $territory_result;
-  }
+}
 
-  // Find all territories whose state_id (foreign key) matches this id
-  function find_territories_for_state_id($state_id=0) {
+// Find all territories whose state_id (foreign key) matches this id
+function find_territories_for_state_id($state_id=0) {
     global $db;
     $sql = "SELECT * FROM territories ";
     $sql .= "WHERE state_id='" . db_escape($db, $state_id) . "' ";
     $sql .= "ORDER BY position ASC;";
     $territory_result = db_query($db, $sql);
     return $territory_result;
-  }
+}
 
-  // Find territory by ID
-  function find_territory_by_id($id=0) {
+// Find territory by ID
+function find_territory_by_id($id=0) {
     global $db;
     $sql = "SELECT * FROM territories ";
     $sql .= "WHERE id='" . db_escape($db, $id) . "';";
     $territory_result = db_query($db, $sql);
     return $territory_result;
-  }
+}
 
-  function validate_territory($territory, $errors=array()) {
+function validate_territory($territory, $errors=array()) {
     if (is_blank($territory['name'])) {
-      $errors[] = "Name cannot be blank.";
+        $errors[] = "Name cannot be blank.";
     } elseif (!has_length($territory['name'], array('min' => 2, 'max' => 255))) {
-      $errors[] = "Name must be between 2 and 255 characters.";
+        $errors[] = "Name must be between 2 and 255 characters.";
     }
 
     if (is_blank($territory['state_id'])) {
-      $errors[] = "State ID cannot be blank.";
+        $errors[] = "State ID cannot be blank.";
     }
 
     if (is_blank($territory['position'])) {
-      $errors[] = "Position cannot be blank.";
+        $errors[] = "Position cannot be blank.";
     }
 
     return $errors;
-  }
+}
 
-  // Add a new territory to the table
-  // Either returns true or an array of errors
-  function insert_territory($territory) {
+// Add a new territory to the table
+// Either returns true or an array of errors
+function insert_territory($territory) {
     global $db;
 
     $errors = validate_territory($territory);
     if (!empty($errors)) {
-      return $errors;
+        return $errors;
     }
 
     $sql = "INSERT INTO territories ";
@@ -276,24 +276,24 @@
     // For INSERT statements, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
-      return true;
+        return true;
     } else {
-      // The SQL INSERT territoryment failed.
-      // Just show the error, not the form
-      echo db_error($db);
-      db_close($db);
-      exit;
+        // The SQL INSERT territoryment failed.
+        // Just show the error, not the form
+        echo db_error($db);
+        db_close($db);
+        exit;
     }
-  }
+}
 
-  // Edit a territory record
-  // Either returns true or an array of errors
-  function update_territory($territory) {
+// Edit a territory record
+// Either returns true or an array of errors
+function update_territory($territory) {
     global $db;
 
     $errors = validate_territory($territory);
     if (!empty($errors)) {
-      return $errors;
+        return $errors;
     }
 
     $sql = "UPDATE territories SET ";
@@ -305,90 +305,90 @@
     // For update_territory statements, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
-      return true;
+        return true;
     } else {
-      // The SQL UPDATE territoryment failed.
-      // Just show the error, not the form
-      echo db_error($db);
-      db_close($db);
-      exit;
+        // The SQL UPDATE territoryment failed.
+        // Just show the error, not the form
+        echo db_error($db);
+        db_close($db);
+        exit;
     }
-  }
+}
 
-  //
-  // SALESPERSON QUERIES
-  //
+//
+// SALESPERSON QUERIES
+//
 
-  // Find all salespeople, ordered last_name, first_name
-  function find_all_salespeople() {
+// Find all salespeople, ordered last_name, first_name
+function find_all_salespeople() {
     global $db;
     $sql = "SELECT * FROM salespeople ";
     $sql .= "ORDER BY last_name ASC, first_name ASC;";
     $salespeople_result = db_query($db, $sql);
     return $salespeople_result;
-  }
+}
 
-  // To find salespeople, we need to use the join table.
-  // We LEFT JOIN salespeople_territories and then find results
-  // in the join table which have the same territory ID.
-  function find_salespeople_for_territory_id($territory_id=0) {
+// To find salespeople, we need to use the join table.
+// We LEFT JOIN salespeople_territories and then find results
+// in the join table which have the same territory ID.
+function find_salespeople_for_territory_id($territory_id=0) {
     global $db;
     $sql = "SELECT * FROM salespeople ";
     $sql .= "LEFT JOIN salespeople_territories
-              ON (salespeople_territories.salesperson_id = salespeople.id) ";
-    $sql .= "WHERE salespeople_territories.territory_id='" . db_escape($db, $territory_id) . "' ";
-    $sql .= "ORDER BY last_name ASC, first_name ASC;";
-    $salespeople_result = db_query($db, $sql);
-    return $salespeople_result;
-  }
+        ON (salespeople_territories.salesperson_id = salespeople.id) ";
+$sql .= "WHERE salespeople_territories.territory_id='" . db_escape($db, $territory_id) . "' ";
+$sql .= "ORDER BY last_name ASC, first_name ASC;";
+$salespeople_result = db_query($db, $sql);
+return $salespeople_result;
+}
 
-  // Find salesperson using id
-  function find_salesperson_by_id($id=0) {
+// Find salesperson using id
+function find_salesperson_by_id($id=0) {
     global $db;
     $sql = "SELECT * FROM salespeople ";
     $sql .= "WHERE id='" . db_escape($db, $id) . "' ";
     $sql .= "LIMIT 1;";
     $salespeople_result = db_query($db, $sql);
     return $salespeople_result;
-  }
+}
 
-  function validate_salesperson($salesperson, $errors=array()) {
+function validate_salesperson($salesperson, $errors=array()) {
     if (is_blank($salesperson['first_name'])) {
-      $errors[] = "First name cannot be blank.";
+        $errors[] = "First name cannot be blank.";
     } elseif (!has_length($salesperson['first_name'], array('min' => 2, 'max' => 255))) {
-      $errors[] = "First name must be between 2 and 255 characters.";
+        $errors[] = "First name must be between 2 and 255 characters.";
     }
 
     if (is_blank($salesperson['last_name'])) {
-      $errors[] = "Last name cannot be blank.";
+        $errors[] = "Last name cannot be blank.";
     } elseif (!has_length($salesperson['last_name'], array('min' => 2, 'max' => 255))) {
-      $errors[] = "Last name must be between 2 and 255 characters.";
+        $errors[] = "Last name must be between 2 and 255 characters.";
     }
 
     if (is_blank($salesperson['email'])) {
-      $errors[] = "Email cannot be blank.";
+        $errors[] = "Email cannot be blank.";
     } elseif (!has_valid_email_format($salesperson['email'])) {
-      $errors[] = "Email must be a valid format.";
+        $errors[] = "Email must be a valid format.";
     }
 
     if (is_blank($salesperson['phone'])) {
-      $errors[] = "Phone cannot be blank.";
+        $errors[] = "Phone cannot be blank.";
     } elseif (!has_length($salesperson['phone'], array('max' => 255))) {
-      $errors[] = "Phone must be less than 255 characters.";
+        $errors[] = "Phone must be less than 255 characters.";
     } elseif (!has_valid_phone_format($salesperson['phone'])) {
-      $errors[] = "Phone can only contain numbers, spaces, parentheses, and dashes.";
+        $errors[] = "Phone can only contain numbers, spaces, parentheses, and dashes.";
     }
     return $errors;
-  }
+}
 
-  // Add a new salesperson to the table
-  // Either returns true or an array of errors
-  function insert_salesperson($salesperson) {
+// Add a new salesperson to the table
+// Either returns true or an array of errors
+function insert_salesperson($salesperson) {
     global $db;
 
     $errors = validate_salesperson($salesperson);
     if (!empty($errors)) {
-      return $errors;
+        return $errors;
     }
 
     $sql = "INSERT INTO salespeople ";
@@ -402,24 +402,24 @@
     // For INSERT statements, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
-      return true;
+        return true;
     } else {
-      // The SQL INSERT statement failed.
-      // Just show the error, not the form
-      echo db_error($db);
-      db_close($db);
-      exit;
+        // The SQL INSERT statement failed.
+        // Just show the error, not the form
+        echo db_error($db);
+        db_close($db);
+        exit;
     }
-  }
+}
 
-  // Edit a salesperson record
-  // Either returns true or an array of errors
-  function update_salesperson($salesperson) {
+// Edit a salesperson record
+// Either returns true or an array of errors
+function update_salesperson($salesperson) {
     global $db;
 
     $errors = validate_salesperson($salesperson);
     if (!empty($errors)) {
-      return $errors;
+        return $errors;
     }
 
     $sql = "UPDATE salespeople SET ";
@@ -432,131 +432,131 @@
     // For update_salesperson statements, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
-      return true;
+        return true;
     } else {
-      // The SQL UPDATE statement failed.
-      // Just show the error, not the form
-      echo db_error($db);
-      db_close($db);
-      exit;
+        // The SQL UPDATE statement failed.
+        // Just show the error, not the form
+        echo db_error($db);
+        db_close($db);
+        exit;
     }
-  }
+}
 
-  // To find territories, we need to use the join table.
-  // We LEFT JOIN salespeople_territories and then find results
-  // in the join table which have the same salesperson ID.
-  function find_territories_by_salesperson_id($id=0) {
+// To find territories, we need to use the join table.
+// We LEFT JOIN salespeople_territories and then find results
+// in the join table which have the same salesperson ID.
+function find_territories_by_salesperson_id($id=0) {
     global $db;
     $sql = "SELECT * FROM territories ";
     $sql .= "LEFT JOIN salespeople_territories
-              ON (territories.id = salespeople_territories.territory_id) ";
-    $sql .= "WHERE salespeople_territories.salesperson_id='" . db_escape($db, $id) . "' ";
-    $sql .= "ORDER BY territories.name ASC;";
-    $territories_result = db_query($db, $sql);
-    return $territories_result;
-  }
+        ON (territories.id = salespeople_territories.territory_id) ";
+$sql .= "WHERE salespeople_territories.salesperson_id='" . db_escape($db, $id) . "' ";
+$sql .= "ORDER BY territories.name ASC;";
+$territories_result = db_query($db, $sql);
+return $territories_result;
+}
 
-  //
-  // USER QUERIES
-  //
+//
+// USER QUERIES
+//
 
-  // Find all users, ordered last_name, first_name
-  function find_all_users() {
+// Find all users, ordered last_name, first_name
+function find_all_users() {
     global $db;
     $sql = "SELECT * FROM users ";
     $sql .= "ORDER BY last_name ASC, first_name ASC;";
     $users_result = db_query($db, $sql);
     return $users_result;
-  }
+}
 
-  // Find user using id
-  function find_user_by_id($id=0) {
+// Find user using id
+function find_user_by_id($id=0) {
     global $db;
     $sql = "SELECT * FROM users ";
     $sql .= "WHERE id='" . db_escape($db, $id) . "' ";
     $sql .= "LIMIT 1;";
     $users_result = db_query($db, $sql);
     return $users_result;
-  }
+}
 
-  // find_users_by_username('rockclimber67');
-  function find_users_by_username($username='') {
+// find_users_by_username('rockclimber67');
+function find_users_by_username($username='') {
     global $db;
     $sql = "SELECT * FROM users ";
     $sql .= "WHERE username = '" . db_escape($db, $username) . "';";
     $users_result = db_query($db, $sql);
     return $users_result;
-  }
+}
 
-  function validate_user($user, $errors=array()) {
+function validate_user($user, $errors=array()) {
     if(isset($user['new_password'])) {
-      if(!is_blank($user['new_password'])) {
-        if(!password_verify($user['pre_password'], $user['hashed_password'])) {
-          $errors[] = "Previous password is not correct.";
-          return $errors;
+        if(!is_blank($user['new_password'])) {
+            if(!password_verify($user['pre_password'], $user['hashed_password'])) {
+                $errors[] = "Previous password is not correct.";
+                return $errors;
+            }
         }
-      }
     }
     if(isset($user['new_password'])) {
-      $user['password'] = $user['new_password'];
+        $user['password'] = $user['new_password'];
     }
     if (is_blank($user['first_name'])) {
-      $errors[] = "First name cannot be blank.";
+        $errors[] = "First name cannot be blank.";
     } elseif (!has_length($user['first_name'], array('min' => 2, 'max' => 255))) {
-      $errors[] = "First name must be between 2 and 255 characters.";
+        $errors[] = "First name must be between 2 and 255 characters.";
     }
 
     if (is_blank($user['last_name'])) {
-      $errors[] = "Last name cannot be blank.";
+        $errors[] = "Last name cannot be blank.";
     } elseif (!has_length($user['last_name'], array('min' => 2, 'max' => 255))) {
-      $errors[] = "Last name must be between 2 and 255 characters.";
+        $errors[] = "Last name must be between 2 and 255 characters.";
     }
 
     if (is_blank($user['email'])) {
-      $errors[] = "Email cannot be blank.";
+        $errors[] = "Email cannot be blank.";
     } elseif (!has_valid_email_format($user['email'])) {
-      $errors[] = "Email must be a valid format.";
+        $errors[] = "Email must be a valid format.";
     }
 
     if (is_blank($user['username'])) {
-      $errors[] = "Username cannot be blank.";
+        $errors[] = "Username cannot be blank.";
     } elseif (!has_length($user['username'], array('max' => 255))) {
-      $errors[] = "Username must be less than 255 characters.";
+        $errors[] = "Username must be less than 255 characters.";
     } elseif (!has_valid_username_format($user['username'])) {
-      $errors[] = "Username can only contain letters, numbers, and underscores.";
+        $errors[] = "Username can only contain letters, numbers, and underscores.";
     } elseif (!is_unique_username($user['username'], $user['id'])) {
-      $errors[] = "Username not allowed. Try another.";
+        $errors[] = "Username not allowed. Try another.";
     }
-    
-    if (is_blank($user['password'])) {
-      if($user['submit'] !== "Update") { $errors[] = "Password cannot be blank."; } 
-    } elseif (!has_length($user['password'], array('min' => 12))) {
-      $errors[] = "Password must be at least 12 characters.";
-    } else if (!has_valid_password_format($user['password'])) {
-      $errors[] = "Password must be a valid format.";
-    }
-    
-    if (is_blank($user['confirm_password'])) {
-      if(!isset($user['submit'])) { $errors[] = "Confirm password cannot be blank."; }
-    }
-    
-    if ($user['password'] !== $user['confirm_password']) {
-      $errors[] = "Password and confirm password do not match.";
-    }
-    
-    return $errors;
-  }
 
-  // Add a new user to the table
-  // Either returns true or an array of errors
-  function insert_user($user) {
+    if (is_blank($user['password'])) {
+        if($user['submit'] !== "Update") { $errors[] = "Password cannot be blank."; }
+    } elseif (!has_length($user['password'], array('min' => 12))) {
+        $errors[] = "Password must be at least 12 characters.";
+    } else if (!has_valid_password($user['password'])) {
+        $errors[] = "Password must be a valid format.";
+    }
+
+    if (is_blank($user['password_confirmation'])) {
+        if(!isset($user['submit'])) { $errors[] = ">Confirm password cannot be blank."; }
+    }
+
+    if ($user['password'] !== $user['password_confirmation']) {
+        $errors[] = "Password and confirm password do not match.";
+    }
+
+    return $errors;
+}
+
+// Add a new user to the table
+// Either returns true or an array of errors
+function insert_user($user) {
     global $db;
 
     $errors = validate_user($user);
     if (!empty($errors)) {
-      return $errors;
+        return $errors;
     }
-    
+
     // encrypt the password
     $user['password'] = db_escape($db,$user['password']);
     $hashed_password = password_hash($user['password'], PASSWORD_BCRYPT, ["cost" => 11]);
@@ -574,60 +574,60 @@
     // For INSERT statements, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
-      return true;
+        return true;
     } else {
-      // The SQL INSERT statement failed.
-      // Just show the error, not the form
-      echo db_error($db);
-      db_close($db);
-      exit;
+        // The SQL INSERT statement failed.
+        // Just show the error, not the form
+        echo db_error($db);
+        db_close($db);
+        exit;
     }
-  }
+}
 
-  // Edit a user record
-  // Either returns true or an array of errors
-  function update_user($user) {
+// Edit a user record
+// Either returns true or an array of errors
+function update_user($user) {
     global $db;
-
     $errors = validate_user($user);
     if (!empty($errors)) {
-      return $errors;
+        return $errors;
     }
-    
-    $user['new_password']; 
-    
+    $user['new_password'];
+
     // encrypt the password if not blank
     $user['new_password'] = db_escape($db,$user['new_password']);
     $hashed_password = (is_blank($user['new_password'])) ? '' : password_hash($user['new_password'], PASSWORD_BCRYPT, ["cost" => 11]);
 
+
+
     $sql = "UPDATE users SET ";
     // if password not blank, then update
     if(!is_blank($user['new_password'])) {
-      $sql .= "hashed_password='" . $hashed_password . "', ";
+        $sql .= "hashed_password='" . $hashed_password . "', ";
     }
     $sql .= "first_name='" . db_escape($db, $user['first_name']) . "', ";
     $sql .= "last_name='" . db_escape($db, $user['last_name']) . "', ";
     $sql .= "email='" . db_escape($db, $user['email']) . "', ";
     $sql .= "username='" . db_escape($db, $user['username']) . "' ";
-    
+
     $sql .= "WHERE id='" . db_escape($db, $user['id']) . "' ";
     $sql .= "LIMIT 1;";
     // For update_user statements, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
-      return true;
+        return true;
     } else {
-      // The SQL UPDATE statement failed.
-      // Just show the error, not the form
-      echo db_error($db);
-      db_close($db);
-      exit;
+        // The SQL UPDATE statement failed.
+        // Just show the error, not the form
+        echo db_error($db);
+        db_close($db);
+        exit;
     }
-  }
+}
 
-  // Delete a user record
-  // Either returns true or false
-  function delete_user($user) {
+// Delete a user record
+// Either returns true or false
+function delete_user($user) {
     global $db;
 
     $sql = "DELETE FROM users ";
@@ -636,44 +636,44 @@
     // For update_user statements, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
-      return true;
+        return true;
     } else {
-      // The SQL DELETE statement failed.
-      // Just show the error, not the form
-      echo db_error($db);
-      db_close($db);
-      exit;
+        // The SQL DELETE statement failed.
+        // Just show the error, not the form
+        echo db_error($db);
+        db_close($db);
+        exit;
     }
-  }
+}
 
-  //
-  // FALILED_LOGINS QUERIES
-  //
-  
-  // Find all users, ordered last_name, first_name
-  function find_all_failed_login() {
+//
+// FALILED_LOGINS QUERIES
+//
+
+// Find all users, ordered last_name, first_name
+function find_all_failed_login() {
     global $db;
     $sql = "SELECT * FROM failed_logins ";
     $sql .= "ORDER BY username ASC;";
     $failed_logins_result = db_query($db, $sql);
     return $failed_logins_result;
-  }
+}
 
-  // Find failed login using username
-  function find_failed_login($username=null) {
+// Find failed login using username
+function find_failed_login($username=null) {
     global $db;
     $sql = "SELECT * FROM failed_logins ";
     $sql .= "WHERE username='" . db_escape($db, $username) . "' ";
     $sql .= "LIMIT 1;";
     $failed_logins_result = db_query($db, $sql);
     return $failed_logins_result;
-  }
-  
-  // Insert a failed login record
-  // Either returns true or false
-  function insert_failed_login($failed_login) {
+}
+
+// Insert a failed login record
+// Either returns true or false
+function insert_failed_login($failed_login) {
     global $db;
-    
+
     $sql = "INSERT INTO failed_logins ";
     $sql .= "(username, count, last_attempt) ";
     $sql .= "VALUES (";
@@ -684,19 +684,19 @@
     // For INSERT statements, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
-      return true;
+        return true;
     } else {
-      // The SQL INSERT statement failed.
-      // Just show the error, not the form
-      echo db_error($db);
-      db_close($db);
-      exit;
+        // The SQL INSERT statement failed.
+        // Just show the error, not the form
+        echo db_error($db);
+        db_close($db);
+        exit;
     }
-  }
-  
-  // Edit failed login record
-  // Either returns true or an array of errors
-  function update_failed_login($failed_login) {
+}
+
+// Edit failed login record
+// Either returns true or an array of errors
+function update_failed_login($failed_login) {
     global $db;
 
     $sql = "UPDATE failed_logins SET ";
@@ -707,13 +707,13 @@
     // For update_failed_login statements, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
-      return true;
+        return true;
     } else {
-      // The SQL UPDATE statement failed.
-      // Just show the error, not the form
-      echo db_error($db);
-      db_close($db);
-      exit;
+        // The SQL UPDATE statement failed.
+        // Just show the error, not the form
+        echo db_error($db);
+        db_close($db);
+        exit;
     }
-  }
+}
 ?>
