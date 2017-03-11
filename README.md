@@ -47,8 +47,8 @@ The following advanced user stories are optional:
   * [ ]  `update_user` only encrypts and updates the password when the password is not blank.
 
 * Bonus Objective 3\.
-  * [ ]  Create a new user using cost 10.
-  * [ ]  Set bcrypt "cost" parameter to 11 (for both insert and update).
+  * [x]  Create a new user using cost 10.
+  * [x]  Set bcrypt "cost" parameter to 11 (for both insert and update).
   * [ ]  Try to login with the "cost 10" user.
   * [ ]  Briefly describe why login still works even after the cost is changed:
 
@@ -69,9 +69,9 @@ The following advanced user stories are optional:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/sammanthp007/Authentication-and-Login-Throttling/blob/master/walkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
+GIF created with [Byzanz](https://github.com/GNOME/byzanz).
 
 ## Notes
 
