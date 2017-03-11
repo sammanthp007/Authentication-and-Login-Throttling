@@ -25,22 +25,39 @@ if(is_post_request() && request_is_same_domain()) {
 
 
     // TODO- Validation required here
-    
+    // Returns an error if password or confirm_password are blank.
+    if (is_blank($user['password'])) {
+        $errors[] = "Password cannot be blank.";
+    }
 
+    if (is_blank($user['password_confirmation'])) {
+        $errors[] = "Confirm Password cannot be blank.";
+    }
 
+    // Returns an error if password and confirm_password do not match.
+    if (!is_same($user['password'], $user['password_confirmation'])) {
+        $errors[] = "Password and Confirm Password do not match.";
+    }
 
+    // Returns an error if password is not at least 12 characters long
+    if (!has_length($user['password'], ['min' => 12])) {
+        $errors[] = "Password should be more than 12 characters.";
+    }
 
-
-
+    // Returns an error if password does not contain at least one of each: uppercase letter, lowercase letter, letter, symbol.
+    if (!has_valid_password($user['password'])) {
+        $errors[] = "Password should contain at least one of each: uppercase letter, lowercase letter, letter, symbol";
+    }
 
     // Validation ENDS HERE
 
-
-    $result = update_user($user);
-    if($result === true) {
-        redirect_to('show.php?id=' . $user['id']);
-    } else {
-        $errors = $result;
+    if (empty($errors)) {
+        $result = update_user($user);
+        if($result === true) {
+            redirect_to('show.php?id=' . $user['id']);
+        } else {
+            $errors = $result;
+        }
     }
 }
 ?>

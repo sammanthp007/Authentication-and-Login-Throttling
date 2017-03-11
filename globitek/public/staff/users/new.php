@@ -62,10 +62,6 @@ if(is_post_request() && request_is_same_domain()) {
         $errors[] = "Password should contain at least one of each: uppercase letter, lowercase letter, letter, symbol";
     }
 
-
-        // Returns any errors related to other validations already on the user.
-        
-
     // Validation ENDS HERE
 
     if (empty($errors)) {
