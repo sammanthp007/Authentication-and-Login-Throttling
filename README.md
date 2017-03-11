@@ -14,7 +14,7 @@ The following **required** functionality is completed:
   * [x]  Returns an error if password or confirm_password are blank.
   * [x]  Returns an error if password and confirm_password do not match.
   * [x]  Returns an error if password is not at least 12 characters long.
-  * [ ]  Returns an error if password does not meet character requirements.
+  * [x]  Returns an error if password does not meet character requirements.
   * [x]  Returns any errors related to other validations already on the user.
 
 3\. Saving a user

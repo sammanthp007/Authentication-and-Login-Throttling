@@ -29,11 +29,7 @@
 
   // has_valid_password('string')
   function has_valid_password($password) {
-      echo $password;
-      return preg_match('/^.*$/', $password);
-      $matc = preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s])$/', $pass);
-      echo $matc;
-      return $matc;
+      return preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/', $password);
   }
 
   // has_valid_email_format('test@test.com')
