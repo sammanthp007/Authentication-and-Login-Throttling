@@ -40,10 +40,10 @@ The following **required** functionality is completed:
 The following advanced user stories are optional:
 
 * Bonus Objective 1\.
-  * [ ]  Identify the subtle Username Enumeration weakness. Include a short description of how the code could be modified to be more secure below:
+  * [x]  Identify the subtle Username Enumeration weakness. Include a short description of how the code could be modified to be more secure below:      Eventhough I have already modified in my code, initially the error message for unsuccessful login due to password verification and no username found were different: not successful vs unsuccessful. We can modifie as done in the code.
 
 * Bonus Objective 2\.
-  * [ ]  User password validations only run when the password is not blank.
+  * [x]  User password validations only run when the password is not blank.
   * [ ]  `update_user` only encrypts and updates the password when the password is not blank.
 
 * Bonus Objective 3\.
