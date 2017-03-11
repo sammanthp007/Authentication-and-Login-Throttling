@@ -24,6 +24,18 @@ if(is_post_request() && request_is_same_domain()) {
     if(isset($_POST['password_confirmation'])) { $user['password_confirmation'] = $_POST['password_confirmation']; }
 
 
+    // TODO- Validation required here
+    
+
+
+
+
+
+
+
+    // Validation ENDS HERE
+
+
     $result = update_user($user);
     if($result === true) {
         redirect_to('show.php?id=' . $user['id']);
